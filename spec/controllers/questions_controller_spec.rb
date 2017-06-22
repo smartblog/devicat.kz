@@ -107,7 +107,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'does not change question attributes' do
         question.reload
-        expect(question.title).to eq 'MyString'
+        expect(question.title).not_to eq 'new title'
         expect(question.body).to eq 'MyText'
       end
 
