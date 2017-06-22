@@ -12,8 +12,11 @@ feature 'View question', %q{
     sign_in(user)
     visit question_path(question)
 
-    expect(page).to have_content "MyString"
-    expect(page).to have_content "MyText"
+    expect(page).to have_content 'MyString'
+    expect(page).to have_content 'MyText'
+    question.answers.each do |answer|
+      expect(page).to have_content answer.body
+    end
   end
 
   scenario 'Unauthenticated user view the question and their answers' do

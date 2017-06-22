@@ -1,3 +1,20 @@
 h1= @question.title
 
 p= @question.body
+
+- if current_user && current_user.author?(@question)
+  = link_to 'Delete question', @question, method: :delete
+
+h2 Answers
+
+ul
+- @question.answers.each do |answer|
+  - if answer.persisted?
+    li= answer.body
+      - if current_user && current_user.author?(answer)
+        = link_to 'Delete answer', answer, method: :delete
+- if user_signed_in?
+  = form_for [@question, @answer] do |f|
+    = f.label :body, 'Answer'
+    = f.text_field :body
+    = f.submit 'Create answer'

@@ -6,14 +6,16 @@ FactoryGirl.define do
   factory :question do
     title
     body 'MyText'
-  end
+    user
 
-  factory :question_with_answers, class: "Question" do
-    title 'MyString'
-    body 'MyText'
+    factory :question_with_answers do
+      transient do
+        answers_count 3
+      end
 
-    after(:create) do
-      create_list(:answer, 3)
+      after(:create) do |question, evaluator|
+        create_list(:answer, evaluator.answers_count, question: question)
+      end
     end
   end
 
