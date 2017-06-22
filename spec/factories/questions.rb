@@ -8,6 +8,15 @@ FactoryGirl.define do
     body 'MyText'
   end
 
+  factory :question_with_answers, class: "Question" do
+    title 'MyString'
+    body 'MyText'
+
+    after(:create) do
+      create_list(:answer, 3)
+    end
+  end
+
   factory :invalid_question, class: "Question" do
     title nil
     body nil
