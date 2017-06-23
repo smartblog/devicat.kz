@@ -14,6 +14,15 @@ class AnswersController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user.author?(@answer)
+      @answer.destroy
+      redirect_to question_path(@answer.question), notice: 'Your answer successfully destroyed'
+    else
+      redirect_to questions_path, notice: 'You do not have permission to destroy this answer'
+    end
+  end
+
   private
 
   def answer_params

@@ -13,7 +13,6 @@ feature 'User delete his answers', %q{
     sign_in(user_with_answers)
 
     visit question_path(user_with_answers.answers.first.question)
-    save_and_open_page
     click_on 'Delete answer'
 
     expect(page).to have_content 'Your answer successfully destroy'
