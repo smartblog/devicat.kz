@@ -11,6 +11,10 @@ feature 'User Sign-Up', %q{
     visit root_path
     click_on 'Ask question'
     click_on 'Sign up'
+    fill_in 'Email', with: 'newuser@test.com'
+    fill_in 'Password', with: '12345678'
+    fill_in 'Password confirmation', with: '12345678'
+    click_on 'Sign up'
 
     expect(page).to have_content 'Welcome! You have signed up successfully'
     expect(page).to have_content 'Sign out'
