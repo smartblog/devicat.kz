@@ -20,5 +20,12 @@ feature 'User Sign-Up', %q{
     expect(page).to have_content 'Sign out'
   end
 
-  scenario 'Authenticated user tries to registrate'
+  scenario 'Authenticated user tries to registrate' do
+    sign_in(user)
+
+    visit root_path
+    click_on 'Ask question'
+
+    expect(page).to have_no_content 'Sign up'
+  end
 end
