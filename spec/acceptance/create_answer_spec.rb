@@ -12,7 +12,6 @@ feature 'Create answer', %q{
   scenario 'Authenticated user answers the question' do
     sign_in(user)
     visit question_path(question)
-    save_and_open_page
     fill_in 'answer_body', with: 'Answer text'
     click_on 'Create answer'
 
