@@ -15,5 +15,9 @@ feature 'User sign out', %q{
     expect(page).to have_content 'Sign in'
   end
 
-  scenario 'Unauthenticated user try to sign out'
+  scenario 'Non-Authenticated user try to sign out' do
+    visit questions_path
+
+    expect(page).to have_no_content 'Sign out'
+  end
 end
