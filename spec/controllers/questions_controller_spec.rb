@@ -87,7 +87,7 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'PATCH #update' do
     sign_in_user
-    let!(:users_question) { create(:question, user: @user) }
+    let(:users_question) { create(:question, user: @user) }
 
     context 'valid attributes' do
       it 'assigns the requested question to @question' do
@@ -109,10 +109,13 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     context 'invalid attributes' do
-      before { patch :update, params: { id: question, question: { title: 'new title', body: nil } } }
+      let(:title) { users_question.title }
+      let(:body) { users_question.body }
+
+      before { patch :update, params: { id: users_question, question: { title: 'new title', body: nil } } }
 
       it 'does not change question attributes' do
-        question.reload
+        users_question.reload
         expect(question.title).not_to eq 'new title'
         expect(question.body).to eq 'MyText'
       end
