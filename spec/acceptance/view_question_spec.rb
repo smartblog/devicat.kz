@@ -10,16 +10,16 @@ feature 'View question', %q{
 
   scenario 'Authenticated user view the question and their answers' do
     sign_in(user)
-    visit_and_view_question
+    visit_and_check_question
   end
 
   scenario 'Unauthenticated user view the question and their answers' do
-    visit_and_view_question
+    visit_and_check_question
   end
 
   private
 
-  def visit_and_view_question
+  def visit_and_check_question
     visit question_path(question)
 
     expect(page).to have_content 'MyString'
