@@ -20,6 +20,17 @@ feature 'Create question', %q{
     expect(page).to have_content 'Your question successfully created.'
   end
 
+  scenario 'Authentificates user creates question with blank fields' do
+    sign_in(user)
+    
+    visit questions_path
+    click_on 'Ask question'
+    click_on 'Create'
+
+    expect(page).to have_content "Title can't be blank"
+    expect(page).to have_content "Body can't be blank"
+  end
+
   scenario 'Non-authentificated user tryes to create question' do
     visit questions_path
     click_on 'Ask question'
