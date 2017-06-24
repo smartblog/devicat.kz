@@ -7,7 +7,6 @@ feature 'User delete his questions', %q{
 
   given(:user) { create(:user) }
   given(:user_with_questions) { create(:user_with_questions) }
-  given(:question) { create(:question) }
 
   scenario 'User try delete his question' do
     sign_in(user_with_questions)
