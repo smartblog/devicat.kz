@@ -10,7 +10,7 @@ RSpec.describe User do
   let(:user_with_questions) { create(:user_with_questions) }
   let(:user_with_answers) { create(:user_with_answers) }
 
-  describe 'check author? for questions' do
+  describe '#author? for questions' do
     it 'should return true if user is author of question' do
       expect(user_with_questions).to be_author(user_with_questions.questions.first)
     end
@@ -20,7 +20,7 @@ RSpec.describe User do
     end
   end
 
-  describe 'check author? for answers' do
+  describe '#author? for answers' do
     it 'should return true if user is author of answer' do
       expect(user_with_answers).to be_author(user_with_answers.answers.first)
     end
