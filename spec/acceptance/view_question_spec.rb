@@ -24,5 +24,8 @@ feature 'View question', %q{
 
     expect(page).to have_content "MyString"
     expect(page).to have_content "MyText"
+    question.answers.each do |answer|
+      expect(page).to have_content answer.body
+    end
   end
 end
