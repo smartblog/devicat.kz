@@ -10,20 +10,20 @@ feature 'View question', %q{
 
   scenario 'Authenticated user view the question and their answers' do
     sign_in(user)
+    visit_and_view_question
+  end
+
+  scenario 'Unauthenticated user view the question and their answers' do
+    visit_and_view_question
+  end
+
+  private
+
+  def visit_and_view_question
     visit question_path(question)
 
     expect(page).to have_content 'MyString'
     expect(page).to have_content 'MyText'
-    question.answers.each do |answer|
-      expect(page).to have_content answer.body
-    end
-  end
-
-  scenario 'Unauthenticated user view the question and their answers' do
-    visit question_path(question)
-
-    expect(page).to have_content "MyString"
-    expect(page).to have_content "MyText"
     question.answers.each do |answer|
       expect(page).to have_content answer.body
     end
