@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
+  before_action :redirect, only: [:update, :destroy]
 
   def index
     @questions = Question.all
@@ -28,24 +29,16 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if current_user.author?(@question)
-      if @question.update(question_params)
-        redirect_to @question, notice: 'Your question successfully updated'
-      else
-        render :edit
-      end
+    if @question.update(question_params)
+      redirect_to @question, notice: 'Your question successfully updated'
     else
-      redirect_to questions_path, notice: 'You dont have permission to update this question'
+      render :edit
     end
   end
 
   def destroy
-    if current_user.author?(@question)
-      @question.destroy
-      redirect_to questions_path, notice: 'Your question successfully destroy'
-    else
-      redirect_to questions_path, notice: 'You dont have permission to delete this question'
-    end
+    @question.destroy
+    redirect_to questions_path, notice: 'Your question successfully destroy'
   end
 
   private
@@ -56,5 +49,9 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body)
+  end
+
+  def redirect
+    redirect_to questions_path, notice: 'You dont have permission to update this question' unless current_user.author?(@question)
   end
 end
