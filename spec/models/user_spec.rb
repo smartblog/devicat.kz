@@ -19,14 +19,4 @@ RSpec.describe User do
       expect(user).to_not be_author(user_with_questions.questions.first)
     end
   end
-
-  describe '#author? for answers' do
-    it 'should return true if user is author of answer' do
-      expect(user_with_answers).to be_author(user_with_answers.answers.first)
-    end
-
-    it '#author_of should return false so as user is not author of answer' do
-      expect(user).to_not be_author(user_with_answers.answers.first)
-    end
-  end
 end
