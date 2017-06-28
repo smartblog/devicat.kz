@@ -7,15 +7,15 @@ feature 'User delete his questions', %q{
 
   given(:user) { create(:user) }
   given(:user_with_questions) { create(:user_with_questions) }
+  given(:question) { user_with_questions.questions.first }
 
   scenario 'User try delete his question' do
     sign_in(user_with_questions)
-    @temp_title = user_with_questions.questions.first.title
-    visit question_path(user_with_questions.questions.first)
+    visit question_path(question)
     click_on 'Delete question'
 
     expect(page).to have_content 'Your question successfully destroy'
-    expect(page).to have_no_content @temp_title
+    expect(page).to have_no_content question
   end
 
   scenario 'User try delete not his question' do
