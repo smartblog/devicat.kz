@@ -6,7 +6,7 @@ p= @question.body
   = link_to 'Delete question', @question, method: :delete
 
 .answers
-  = render 'answers'
+  = render @question.answers
 
 - if user_signed_in?
   = form_for [@question, @answer], remote: true do |f|
