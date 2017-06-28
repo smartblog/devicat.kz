@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
   before_action :set_question, only: [:create]
 
   def create
-    @answer = @question.answers.create(answer_params)
+    @answer = @question.answers.new(answer_params)
     @answer.user = current_user
     @answer.save
   end
