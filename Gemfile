@@ -58,6 +58,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'database_cleaner'
 end
 
 group :test do
