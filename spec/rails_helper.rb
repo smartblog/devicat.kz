@@ -61,16 +61,25 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  # before start specs all db datas deletes
-  config.before(:suite) { DatabaseCleaner.clean_with :truncation }
-  # для каждого теста, контролировать бд транзакционно
-  config.before(:each)  { DatabaseCleaner.strategy = :transaction }
-  # для каждого теста с js, контролировать бд обнулением
-  config.before(:each, js: true)  { DatabaseCleaner.strategy = :truncation }
-  # начать отслеживание по выбранной стратегии
-  config.before(:each)  { DatabaseCleaner.start }
-  # применить очищение по выбранной стратегии
-  config.after(:each)   { DatabaseCleaner.clean }
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
 
 Shoulda::Matchers.configure do |config|
