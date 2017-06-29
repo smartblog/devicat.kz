@@ -7,15 +7,15 @@ feature 'User delete his answers', %q{
 
   given(:user) { create(:user) }
   given(:user_with_answers) { create(:user_with_answers) }
+  given(:answer) { user_with_answers.answers.first }
 
   scenario 'User try delete his answer' do
     sign_in(user_with_answers)
-    @temp_body = user_with_answers.answers.first.body
-    visit question_path(user_with_answers.answers.first.question)
+    visit question_path(answer.question)
     click_on 'Delete answer'
 
     expect(page).to have_content 'Your answer successfully destroy'
-    expect(page).to have_no_content @temp_body
+    expect(page).to have_no_content answer.body
   end
 
   scenario 'User try delete not his answer' do
