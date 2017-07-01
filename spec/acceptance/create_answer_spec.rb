@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'Create answer', %q{
   To answer to question
@@ -14,7 +14,7 @@ feature 'Create answer', %q{
     visit question_path(question)
     fill_in 'answer_body', with: 'My answer'
     click_on 'Create answer'
-    
+
     expect(page).to have_content 'My answer'
   end
 
