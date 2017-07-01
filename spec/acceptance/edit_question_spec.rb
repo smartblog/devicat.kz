@@ -28,7 +28,7 @@ feature 'Question editing', %q{
     scenario 'tries to edit his question', js: true do
       click_on 'Edit question'
       fill_in 'question_title', with: 'new question title'
-      fill_in 'question body', with: 'new question body'
+      fill_in 'question_body', with: 'new question body'
       click_on 'Save question'
 
       expect(page).to_not have_content question.body
