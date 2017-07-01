@@ -1,12 +1,21 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_answer, only: [:destroy]
+  before_action :set_answer, only: [:destroy, :update]
   before_action :set_question, only: [:create]
 
   def create
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
     @answer.save
+  end
+
+  def update
+    if current_user.author?(@answer)
+      @answer.update(answer_params)
+      @question = @answer.question
+    else
+      redirect_to question_path(@answer.question)
+    end
   end
 
   def destroy

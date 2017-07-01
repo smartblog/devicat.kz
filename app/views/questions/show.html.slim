@@ -5,12 +5,19 @@ p= @question.body
 - if current_user && current_user.author?(@question)
   = link_to 'Delete question', @question, method: :delete
 
+h2 Answers
+
 .answers
-  = render @question.answers
+  ul.answers-list
+    = render @question.answers
+
+h3 Add Your Answer:
 
 - if user_signed_in?
   = form_for [@question, @answer], remote: true do |f|
     .answer-errors
-    = f.label :body, 'Answer'
-    = f.text_field :body
-    = f.submit 'Create answer'
+    .form-group
+      = f.label :body, 'Answer'
+      = f.text_area :body, class: 'form-control'
+    .form-group
+      = f.submit 'Create answer', class: 'btn btn-primary'
