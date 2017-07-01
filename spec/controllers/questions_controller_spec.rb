@@ -104,7 +104,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'render updated question' do
         patch :update, params: { id: users_question, question: attributes_for(:question) }, format: :js
-        expect(response).to render_template :update
+        expect(response).to redirect_to question_path
       end
     end
 
@@ -118,10 +118,6 @@ RSpec.describe QuestionsController, type: :controller do
         users_question.reload
         expect(question.title).not_to eq 'new title'
         expect(question.body).to eq 'MyText'
-      end
-
-      it 're-renders edit view' do
-        expect(response).to render_template :update
       end
     end
   end

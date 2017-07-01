@@ -3,7 +3,21 @@ h1= @question.title
 p= @question.body
 
 - if current_user && current_user.author?(@question)
-  = link_to 'Delete question', @question, method: :delete
+  .edit-delete
+    = link_to 'Edit question', '', class: 'edit-question-link',
+      data: { question_id: @question.id }
+    '
+    = link_to 'Delete question', @question, method: :delete
+    = form_for @question, remote: true, html: { id: 'edit-question' } do |f|
+      .question-errors
+      .form-group
+        = f.label :title, 'Question tilte'
+        = f.text_field :title, class: 'form-control'
+      .form-group
+        = f.label :body, 'Question body'
+        = f.text_area :body, class: 'form-control'
+      .form-group
+        = f.submit 'Save question', class: 'btn btn-primary', id: 'question-update-submit'
 
 h2 Answers
 
