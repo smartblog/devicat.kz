@@ -18,6 +18,15 @@ feature 'Create answer', %q{
     expect(page).to have_content 'My answer'
   end
 
+  scenario 'User try to create invalid answer', js: true do
+    sign_in user
+    visit question_path(question)
+
+    click_on 'Create answer'
+
+    expect(page).to have_content "Body can't be blank"
+  end
+
   scenario 'Non-Authenticated user answers the question' do
     visit question_path(question)
 

@@ -10,6 +10,7 @@ p= @question.body
 
 - if user_signed_in?
   = form_for [@question, @answer], remote: true do |f|
+    .answer-errors
     = f.label :body, 'Answer'
     = f.text_field :body
     = f.submit 'Create answer'
