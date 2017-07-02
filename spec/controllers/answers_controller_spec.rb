@@ -91,4 +91,39 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #set_best' do
+    sign_in_user
+
+    context 'author of question try set best answer' do
+      let!(:users_question) { create(:question_with_answers, user: @user) }
+      it 'set best answer' do
+        patch :set_best, params: { id: users_question.answers.first }, format: :js
+        expect(assigns(:answer).best).to eq true
+      end
+    end
+
+    context 'another user try set best answer' do
+      let(:question) { create(:question_with_answers) }
+      before do
+        patch :set_best, params: { id: question.answers.first }, format: :js
+      end
+      
+      it 'should not set best answer' do
+        expect(assigns(:answer).best).to eq false
+      end
+    end
+
+    context 'Non-authenticated user try set best answer' do
+      let(:question) { create(:question_with_answers) }
+      before do
+        patch :set_best, params: { id: question.answers.first }, format: :js
+      end
+
+      it 'should not set best answer' do
+        sign_out(@user)
+        expect(question.answers.first.best).to eq false
+      end
+    end
+  end
 end

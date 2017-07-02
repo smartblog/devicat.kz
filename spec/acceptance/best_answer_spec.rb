@@ -25,7 +25,7 @@ feature 'Choose best answer', %q{
     scenario 'Author try choose the best answer', js: true do
       within "#answer-#{question.answers.first.id}" do
         click_on 'Choose best'
-        expect(page).to have_content 'best answer'
+        expect(page).to have_content 'Best answer'
       end
     end
   end
