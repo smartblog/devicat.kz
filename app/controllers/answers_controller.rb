@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_answer, only: [:destroy, :update]
+  before_action :set_answer, only: [:destroy, :update, :set_best]
   before_action :set_question, only: [:create]
 
   def create
@@ -24,6 +24,10 @@ class AnswersController < ApplicationController
     else
       redirect_to questions_path, notice: 'You do not have permission to destroy this answer'
     end
+  end
+
+  def set_best
+    @answer.set_best if current_user.author?(@answer.question)
   end
 
   private

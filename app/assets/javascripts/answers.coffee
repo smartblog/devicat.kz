@@ -2,6 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 ready = ->
+  $('.best-answer-flag').closest('div').prependTo('.answers-list')
+
 $(document).on('turbolinks:load', ready)
 
 $(document).on('click', '.edit-answer-link', (e) ->
