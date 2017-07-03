@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_answer, only: [:destroy]
+  before_action :set_answer, only: [:destroy, :update, :set_best]
   before_action :set_question, only: [:create]
 
   def create
@@ -9,13 +9,25 @@ class AnswersController < ApplicationController
     @answer.save
   end
 
+  def update
+    if current_user.author?(@answer)
+      @answer.update(answer_params)
+      @question = @answer.question
+    else
+      redirect_to question_path(@answer.question)
+    end
+  end
+
   def destroy
     if current_user.author?(@answer)
       @answer.destroy
-      redirect_to question_path(@answer.question), notice: 'Your answer successfully destroyed'
     else
       redirect_to questions_path, notice: 'You do not have permission to destroy this answer'
     end
+  end
+
+  def set_best
+    @answer.set_best if current_user.author?(@answer.question)
   end
 
   private

@@ -87,24 +87,24 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'PATCH #update' do
     sign_in_user
-    let(:users_question) { create(:question, user: @user) }
+    let!(:users_question) { create(:question, user: @user) }
 
     context 'valid attributes' do
       it 'assigns the requested question to @question' do
-        patch :update, params: { id: question, question: attributes_for(:question) }
+        patch :update, params: { id: question, question: attributes_for(:question) }, format: :js
         expect(assigns(:question)).to eq question
       end
 
       it 'change question attributes' do
-        patch :update, params: { id: users_question, question: { title: 'new title', body: 'new body' } }
+        patch :update, params: { id: users_question, question: { title: 'new title', body: 'new body' } }, format: :js
         users_question.reload
         expect(users_question.title).to eq 'new title'
         expect(users_question.body).to eq 'new body'
       end
 
-      it 'redirects to the updated question' do
-        patch :update, params: { id: users_question, question: attributes_for(:question) }
-        expect(response).to redirect_to users_question
+      it 'render updated question' do
+        patch :update, params: { id: users_question, question: attributes_for(:question) }, format: :js
+        expect(response).to redirect_to question_path
       end
     end
 
@@ -112,16 +112,12 @@ RSpec.describe QuestionsController, type: :controller do
       let(:title) { users_question.title }
       let(:body) { users_question.body }
 
-      before { patch :update, params: { id: users_question, question: { title: 'new title', body: nil } } }
+      before { patch :update, params: { id: users_question, question: { title: 'new title', body: nil } }, format: :js }
 
       it 'does not change question attributes' do
         users_question.reload
         expect(question.title).not_to eq 'new title'
         expect(question.body).to eq 'MyText'
-      end
-
-      it 're-renders edit view' do
-        expect(response).to render_template :edit
       end
     end
   end

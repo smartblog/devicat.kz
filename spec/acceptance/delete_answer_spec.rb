@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'User delete his answers', %q{
   User can delete his answers
@@ -9,12 +9,11 @@ feature 'User delete his answers', %q{
   given(:user_with_answers) { create(:user_with_answers) }
   given(:answer) { user_with_answers.answers.first }
 
-  scenario 'User try delete his answer' do
+  scenario 'User try delete his answer', js: true do
     sign_in(user_with_answers)
     visit question_path(answer.question)
     click_on 'Delete answer'
 
-    expect(page).to have_content 'Your answer successfully destroy'
     expect(page).to have_no_content answer.body
   end
 
