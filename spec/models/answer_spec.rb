@@ -5,6 +5,8 @@ RSpec.describe Answer, type: :model do
   it { should belong_to :user }
   it { should have_db_index :question_id }
   it { should validate_presence_of :body }
+  it { should have_many :attachments }
+  it { should accept_nested_attributes_for :attachments }
 
   let(:question) { create(:question_with_answers) }
   let(:answer) { question.answers.first }
