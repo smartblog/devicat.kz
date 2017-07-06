@@ -12,6 +12,6 @@
   p
     = f.fields_for :attachments do |a|
       = render 'common/attachment_fields', f: a
-      .links
-        = link_to_add_association 'add file', f, :attachments, partial: 'common/attachment_fields'
+    .links
+      = link_to_add_association 'add file', f, :attachments, partial: 'common/attachment_fields'
   = f.submit 'Create', class: 'btn btn-primary'
