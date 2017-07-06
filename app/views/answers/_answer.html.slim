@@ -5,6 +5,8 @@ div id="answer-#{answer.id}"
       span.label.label-success.best-answer-flag Best answer
       br
     = answer.body
+    ul.answer-attachments
+      = render 'common/attachments', resource: answer
 
     .delete-edit-answer
       - if current_user && current_user.author?(answer.question)

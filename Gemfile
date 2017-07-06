@@ -37,6 +37,9 @@ gem 'rails-controller-testing'
 gem 'devise'
 gem 'therubyracer'
 gem 'twitter-bootstrap-rails'
+gem 'carrierwave'
+gem 'remotipart'
+gem 'cocoon'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
