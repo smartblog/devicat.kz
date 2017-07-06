@@ -15,7 +15,6 @@ feature 'Add files to question', %q{
     fill_in 'Body', with: 'text text text'
     click_on 'add file'
     uploads = all('input[type="file"]')
-    save_and_open_page
     uploads[0].set("#{Rails.root}/spec/spec_helper.rb")
     uploads[1].set("#{Rails.root}/spec/rails_helper.rb")
     click_on 'Create'
