@@ -18,13 +18,19 @@ feature 'Delete file from question', %q{
 
     scenario 'Author deletes file from question' do
       visit question_path(question)
-      click_on 'delete file'
-      expect(page).to have_no_link 'spec_helper.rb'
+
+      within '.question-attachments' do
+        click_on 'delete file'
+        expect(page).to have_no_link 'spec_helper.rb'
+      end
     end
 
     scenario 'User try delete file from not his question' do
       visit question_path(another_question)
-      expect(page).to have_no_link 'delete file'
+      
+      within '.question-attachments' do
+        expect(page).to have_no_link 'delete file'
+      end
     end
   end
 end

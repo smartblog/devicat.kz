@@ -4,7 +4,7 @@ p= @question.body
 
 p Attachments
 
-ul
+ul.question-attachments
   = render 'common/attachments', resource: @question
 
 - if current_user && current_user.author?(@question)
