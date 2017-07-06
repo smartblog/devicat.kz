@@ -14,13 +14,13 @@ RSpec.describe AttachmentsController, type: :controller do
 
     context 'user try delete file from his question' do
       it 'deletes file' do
-        expect { delete :destroy, params: { id: question.attachments.last } }.to change(Attachment, :count).by(-1)
+        expect { delete :destroy, params: { id: question.attachments.last }, format: :js }.to change(Attachment, :count).by(-1)
       end
     end
 
     context 'user try to delete file from not his question' do
       it 'does not deletes file' do
-        expect { delete :destroy, params: { id: another_question.attachments.last } }.to_not change(Attachment, :count)
+        expect { delete :destroy, params: { id: another_question.attachments.last }, format: :js }.to_not change(Attachment, :count)
       end
     end
   end
