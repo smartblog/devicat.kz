@@ -1,0 +1,13 @@
+div id="rate-question-#{question.id}"
+  p Rating: #{question.rating} | Author: #{question.user.email}
+= question.body
+span class="pull-right like-badge" id="vote-question-#{question.id}"
+  - if current_user && vote
+    | You #{vote.show_value} it
+.vote
+  = render 'common/vote', resource: question, vote: vote
+
+- if question.attachments.present?
+  p Attachments:
+  ul.question-attachments
+    = render 'common/attachments', resource: question

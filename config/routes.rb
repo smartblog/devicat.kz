@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       patch :set_best, on: :member
       concerns :votable
     end
+
+    concerns :votable
   end
 
   resources :attachments, only: [:destroy]

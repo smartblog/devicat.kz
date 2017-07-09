@@ -10,7 +10,7 @@ div id="answer-#{answer.id}"
       p Rating: #{answer.rating} | Author: #{answer.user.email}
     span class="pull-right like-badge" id="vote-answer-#{answer.id}"
       - if current_user && vote(answer)
-        | You #{vote(answer).show_value} this answer
+        | You #{vote(answer).show_value} it
     .vote
       = render 'common/vote', resource: answer, vote: vote(answer)
     - if answer.attachments.present?

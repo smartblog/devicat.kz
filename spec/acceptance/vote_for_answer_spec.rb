@@ -23,7 +23,7 @@ feature 'Vote for answer', %q{
       within "#rate-answer-#{answer.id}" do
         expect(page).to have_content "1"
       end
-      expect(page).to have_content "You like this answer"
+      expect(page).to have_content "You like it"
     end
   end
 
@@ -34,7 +34,7 @@ feature 'Vote for answer', %q{
       within "#rate-answer-#{answer.id}" do
         expect(page).to have_content "-1"
       end
-      expect(page).to have_content "You dislike this answer"
+      expect(page).to have_content "You dislike it"
     end
   end
 
