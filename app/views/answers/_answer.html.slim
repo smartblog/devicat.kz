@@ -4,9 +4,19 @@ div id="answer-#{answer.id}"
     - if answer.best
       span.label.label-success.best-answer-flag Best answer
       br
-    = answer.body
-    ul.answer-attachments
-      = render 'common/attachments', resource: answer
+    p
+      = answer.body
+    div id="rate-answer-#{answer.id}"
+      p Rating: #{answer.rating} | Author: #{answer.user.email}
+    span class="pull-right like-badge" id="vote-answer-#{answer.id}"
+      - if current_user && vote(answer)
+        | You #{vote(answer).show_value} this answer
+    .vote
+      = render 'common/vote', resource: answer, vote: vote(answer)
+    - if answer.attachments.present?
+      p Attachments:
+      ul.answer-attachments
+        = render 'common/attachments', resource: answer
 
     .delete-edit-answer
       - if current_user && current_user.author?(answer.question)
