@@ -10,6 +10,7 @@ feature 'Vote for answer', %q{
   given(:question) { create(:question) }
   given!(:answer) { create(:answer, question: question) }
 
+
   scenario 'authenticated user like answer', js: true do
     sign_in(user)
     visit question_path(question)
@@ -17,20 +18,28 @@ feature 'Vote for answer', %q{
     within '.answers' do
       choose 'Like'
       click_on 'Vote'
+
+      within "#rate-answer-#{answer.id}" do
+        expect(page).to have_content "1"
+      end
+      expect(page).to have_content "You like this answer"
     end
   end
 
   scenario 'authenticated user dislike answer', js: true do
     sign_in(user)
     visit question_path(question)
-
     within '.answers' do
       choose 'Dislike'
       click_on 'Vote'
+      within "#rate-answer-#{answer.id}" do
+        expect(page).to have_content "-1"
+      end
+      expect(page).to have_content "You dislike this answer"
     end
   end
 
-  scenario 'authenticated user try vote answer once more time', js: true do
+  scenario 'authenticated user try vote for answer once more time', js: true do
     sign_in(user)
     visit question_path(question)
     within '.answers' do
