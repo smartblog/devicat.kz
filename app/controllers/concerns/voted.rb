@@ -2,7 +2,7 @@ module Voted
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_votable, only: :vote
+    before_action :set_votable, :set_resource, only: :vote
   end
 
   def vote
@@ -10,14 +10,14 @@ module Voted
       if current_user.author?(@votable)
         format.json { render json:
           { votable: @votable,
-            resource: controller_name.singularize ,
-            error: "You can't vote for your #{controller_name.singularize}" },
+            resource: @resource,
+            error: "You can't vote for your #{@resource}" },
             status: 403 }
       else
         actions = %w{ like dislike cancel_vote}
         @votable.send(params[:vote], current_user) if actions.include?(params[:vote])
-        @vote = @votable.votes.where(user: current_user).first
-        format.json { render json: { resource: controller_name.singularize ,
+        @vote = @votable.vote(current_user)
+        format.json { render json: { resource: @resource,
                                      votable: @votable,
                                      vote: @vote,
                                      vote_value: @vote&.show_value } }
@@ -33,5 +33,9 @@ module Voted
 
   def set_votable
     @votable = model_klass.find(params[:id])
+  end
+
+  def set_resource
+    @resource = controller_name.singularize
   end
 end

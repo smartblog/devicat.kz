@@ -5,16 +5,14 @@ RSpec.describe Vote, type: :model do
   it { should belong_to(:user) }
 
   describe '#show_value' do
-    let!(:question) { create(:question) }
-    let!(:user) { create(:user) }
-    let!(:vote) { question.votes.create(user: user, value: 1) }
+    let(:like_vote) { create(:like_vote) }
+    let(:dislike_vote) { create(:dislike_vote) }
     it 'should return like' do
-      expect(vote&.show_value).to eq :like
+      expect(like_vote.show_value).to eq :like
     end
 
     it 'should return dislike' do
-      vote.update!(value: -1)
-      expect(vote&.show_value).to eq :dislike
+      expect(dislike_vote.show_value).to eq :dislike
     end
   end
 end
