@@ -27,8 +27,7 @@ feature 'Delete file from question', %q{
 
     scenario 'User try delete file from not his question' do
       visit question_path(another_question)
-      
-      within '.question-attachments' do
+      within '.question' do
         expect(page).to have_no_link 'delete file'
       end
     end

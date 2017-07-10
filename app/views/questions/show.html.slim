@@ -1,11 +1,8 @@
 h1= @question.title
 
-p= @question.body
-
-p Attachments
-
-ul.question-attachments
-  = render 'common/attachments', resource: @question
+.question
+      .question-body
+        = render @question, vote: @question_vote
 
 - if current_user && current_user.author?(@question)
   .edit-delete

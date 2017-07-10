@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative 'concerns/voted_spec.rb'
 
 RSpec.describe AnswersController, type: :controller do
   let(:answer) { create(:answer) }
@@ -127,4 +128,6 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  it_behaves_like 'voted'
 end
